@@ -5,7 +5,6 @@ import { MessageService } from './message.service';
 
 // サーバー通信は非同期であるべき。
 import { Observable, of } from 'rxjs';
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 //このサービスは、ヒーローデータを色々と処理するサービスクラス。
 //このクラスにより、herosコンポーネントやhero-detailコンポーネントなどが
