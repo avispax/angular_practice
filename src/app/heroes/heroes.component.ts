@@ -11,7 +11,6 @@ import { HeroService } from "../hero.service";
 export class HeroesComponent implements OnInit {
 
   heroes: Hero[];
-  selectedHero: Hero;
 
   // HeroServiceインスタンスをコンストラクタで生成。ちなみにシングルトン。
   // この、引数で渡すような行為を「依存性の注入」という。慣れろ。
@@ -24,15 +23,23 @@ export class HeroesComponent implements OnInit {
     this.getHeroes();
   }
 
-  onSelect(hero: Hero): void {
-    this.selectedHero = hero;
-  }
-
   // ヒーロー配列をサービスから取得。
   // その時、コールバック（Subscribe）で設定する。
   getHeroes(): void {
     this.heroService.getHeroes().subscribe(heroz =>
       this.heroes = heroz);
+  }
+
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this.heroService.addHero({ name } as Hero)
+      .subscribe(hero => this.heroes.push(hero))
+  }
+
+  delete(hero: Hero): void {
+    this.heroes = this.heroes.filter(h => h !== hero);
+    this.heroService.deleteHero(hero).subscribe();
   }
 
 }
